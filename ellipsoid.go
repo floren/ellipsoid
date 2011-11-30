@@ -199,11 +199,11 @@ func (ellipsoid Ellipsoid) Intermediate(lat1, lon1, lat2, lon2 float64, steps in
 	if steps == 0 {
 		return
 	}
-	r,phi := ellipsoid.To( lat1, lon1, lat2, lon2 )
-	var v []float64 = make([]float64, steps * 2 + 2)
-	for i :=0; i <= steps ; i++ {
-		a,b := ellipsoid.At(lat1, lon1, r * float64(i)/float64(steps) , phi)
-		v[i*2], v[i*2+1] = a,b
+	r, phi := ellipsoid.To(lat1, lon1, lat2, lon2)
+	var v []float64 = make([]float64, steps*2+2)
+	for i := 0; i <= steps; i++ {
+		a, b := ellipsoid.At(lat1, lon1, r*float64(i)/float64(steps), phi)
+		v[i*2], v[i*2+1] = a, b
 	}
 	arr = v
 	return r, phi, arr
@@ -333,7 +333,7 @@ func (ellipsoid Ellipsoid) calculateTargetlocation(lat1, lon1, distance, bearing
 		y = (2.0 * e) - 1.0
 		y = (((((((((sy * sy * 4.0) - 3.0) * y * cz * d) / 6.0) + x) * d) / 4.0) - cz) * sy * d) + tu
 
-		if math.Fabs(y-c) <= eps {
+		if math.Abs(y-c) <= eps {
 			break
 		}
 	}
@@ -447,7 +447,7 @@ func (ellipsoid Ellipsoid) calculateBearing(lat1, lon1, lat2, lon2 float64) (dis
 			fmt.Printf("    e=%.8f, d=%.8f\n", e, d)
 			fmt.Printf("    (d-x)=%.8g\n", del)
 		}
-		if math.Fabs(del) <= eps {
+		if math.Abs(del) <= eps {
 			break
 		}
 		cnt++
